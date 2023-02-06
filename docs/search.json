@@ -1,0 +1,212 @@
+[
+  {
+    "objectID": "index.html#objectvie",
+    "href": "index.html#objectvie",
+    "title": "Parallel Computing with targets package",
+    "section": "Objectvie",
+    "text": "Objectvie\n\n\n\n\nThis training aims to introduce you to (embarrassingly) simple parallel computing."
+  },
+  {
+    "objectID": "index.html#prerequisite",
+    "href": "index.html#prerequisite",
+    "title": "Parallel Computing with targets package",
+    "section": "Prerequisite",
+    "text": "Prerequisite\n\n\n\n\nThis training is for people who have intermediate knowledge of R programming!\n\n\n\nYou should have at least the following experiences:\nyou have\n\ncomfortably used apply functions(lapply, sapply, vapply)\nthe basic knowledge of targets package"
+  },
+  {
+    "objectID": "index.html#what-is-parallel-computing",
+    "href": "index.html#what-is-parallel-computing",
+    "title": "Parallel Computing with targets package",
+    "section": "What is parallel computing?",
+    "text": "What is parallel computing?\n\nParallel computing is a type of computation in which many calculations or processes are carried out simultaneously."
+  },
+  {
+    "objectID": "index.html#what-is-embarrassingly-parallel",
+    "href": "index.html#what-is-embarrassingly-parallel",
+    "title": "Parallel Computing with targets package",
+    "section": "What is embarrassingly parallel?",
+    "text": "What is embarrassingly parallel?\n\n\nalso called embarrassingly parallelizable, perfectly parallel, delightfully parallel or pleasingly parallel\nlittle or no effort is needed to separate the problem into a number of parallel tasks"
+  },
+  {
+    "objectID": "index.html#when-can-i-do-embarrassingly-parallel-computing",
+    "href": "index.html#when-can-i-do-embarrassingly-parallel-computing",
+    "title": "Parallel Computing with targets package",
+    "section": "When can I do (embarrassingly) parallel computing?",
+    "text": "When can I do (embarrassingly) parallel computing?\n\nIf little or no dependency exists between those parallel tasks, or for results between them!\ne.g. for loops"
+  },
+  {
+    "objectID": "index.html#three-ways-to-do-simple-parallel-computing-wtih-targets",
+    "href": "index.html#three-ways-to-do-simple-parallel-computing-wtih-targets",
+    "title": "Parallel Computing with targets package",
+    "section": "Three ways to do simple parallel computing wtih targets",
+    "text": "Three ways to do simple parallel computing wtih targets\n\n\nEasy setting(but for HPC)\n\nclustermq package\nfuture package\n\n\n\n\nHard setting\n\nparallel package"
+  },
+  {
+    "objectID": "index.html#setting",
+    "href": "index.html#setting",
+    "title": "Parallel Computing with targets package",
+    "section": "Setting",
+    "text": "Setting\n\nLet’s say we have a dataset with text, and it comprises of real and fake news. We’re interested in calculating negative/positive sentiment scores in each article and looking at its distribution."
+  },
+  {
+    "objectID": "index.html#overall-workflow",
+    "href": "index.html#overall-workflow",
+    "title": "Parallel Computing with targets package",
+    "section": "Overall workflow",
+    "text": "Overall workflow"
+  },
+  {
+    "objectID": "index.html#without-parllelization",
+    "href": "index.html#without-parllelization",
+    "title": "Parallel Computing with targets package",
+    "section": "Without parllelization",
+    "text": "Without parllelization\n\nTop part of the _targets.R file\n\nlibrary(targets)\n\nsource(\"scripts/functions/parallel_functions.R\")\n#source(\"R/different_code.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
+  },
+  {
+    "objectID": "index.html#without-parllelization-1",
+    "href": "index.html#without-parllelization-1",
+    "title": "Parallel Computing with targets package",
+    "section": "Without parllelization",
+    "text": "Without parllelization\n\nlibrary(targets)\n\nsource(\"scripts/functions/parallel_functions.R\")\n#source(\"R/different_code.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\"),\n               format = \"qs\")\n\n# End this file with a list of target objects.\nlist(\n  #reading in the news data\n  tar_target(data, \n             read_news()),\n  \n  #cleaning the text\n  tar_target(cleaning_text, \n             clean_text(data)),\n  \n  #doing with sentiment analysis without parallelization\n  tar_target(sentiment_analysis, \n             extract_sentiment(data, cleaning_text))\n)"
+  },
+  {
+    "objectID": "index.html#the-extract_sentiment-function",
+    "href": "index.html#the-extract_sentiment-function",
+    "title": "Parallel Computing with targets package",
+    "section": "The extract_sentiment function",
+    "text": "The extract_sentiment function\n\n#getting the sentiment scores from a list of texts(each text is a vector of words!)\nextract_sentiment <- function(data, clean_text_list){\n  print(\"Doing simple lapply(for-loop)!\")\n  #creating the final table\n  final.df <- data %>%\n    select(-text)\n  tryCatch(expr = {\n    #getting the sentiment score\n    final.df[,sentiment_score:=sapply(X = clean_text_list,\n                                      FUN = get_sentiment_score,\n                                      USE.NAMES = F)]\n  })\n  return(final.df)\n}"
+  },
+  {
+    "objectID": "index.html#the-output",
+    "href": "index.html#the-output",
+    "title": "Parallel Computing with targets package",
+    "section": "The output",
+    "text": "The output\n\n#reading the result\nresult <- tar_read(sentiment_analysis)\n#getting the first 6 rows without the date information\nresult %>% select(-date) %>% head()\n\"                                                                   title      subject is_real sentiment_score\n1:      As U.S. budget fight looms, Republicans flip their fiscal script politicsNews    TRUE              12\n2:      U.S. military to accept transgender recruits on Monday: Pentagon politicsNews    TRUE              14\n3:          Senior U.S. Republican senator: 'Let Mr. Mueller do his job' politicsNews    TRUE               6\n4:           FBI Russia probe helped by Australian diplomat tip-off: NYT politicsNews    TRUE               7\n5: Trump wants Postal Service to charge 'much more' for Amazon shipments politicsNews    TRUE              -5\n6:      White House, Congress prepare for talks on spending, immigration politicsNews    TRUE               6\""
+  },
+  {
+    "objectID": "index.html#how-long-it-took",
+    "href": "index.html#how-long-it-took",
+    "title": "Parallel Computing with targets package",
+    "section": "How long it took",
+    "text": "How long it took"
+  },
+  {
+    "objectID": "index.html#with-clustermq",
+    "href": "index.html#with-clustermq",
+    "title": "Parallel Computing with targets package",
+    "section": "With clustermq",
+    "text": "With clustermq\n\nlibrary(targets)\nlibrary(clustermq)\noptions(clustermq.scheduler = \"multiprocess\")\nsource(\"scripts/functions/parallel_functions.R\")\n#source(\"R/different_code.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \n                            \"ggplot2\", \"data.table\", \"parallel\", \n                            \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
+  },
+  {
+    "objectID": "index.html#with-clustermq-1",
+    "href": "index.html#with-clustermq-1",
+    "title": "Parallel Computing with targets package",
+    "section": "With clustermq",
+    "text": "With clustermq\n\nThen you simply type:\n\n#without saying how many cores you will use\ntar_make_clustermq()\n\n\"OR\"\n\n#setting how many cores you will use\ntar_make_clustermq(workers = 2)"
+  },
+  {
+    "objectID": "index.html#remember",
+    "href": "index.html#remember",
+    "title": "Parallel Computing with targets package",
+    "section": "REMEMBER!",
+    "text": "REMEMBER!\n\n\n\n\nTo be safe, leave at least 33% of your cores to run your computer’s OS and other background programs. For instance, if you have 4 cores, use only 2!"
+  },
+  {
+    "objectID": "index.html#how-long-it-took-1",
+    "href": "index.html#how-long-it-took-1",
+    "title": "Parallel Computing with targets package",
+    "section": "How long it took",
+    "text": "How long it took"
+  },
+  {
+    "objectID": "index.html#with-future",
+    "href": "index.html#with-future",
+    "title": "Parallel Computing with targets package",
+    "section": "With Future",
+    "text": "With Future\n\nlibrary(targets)\nlibrary(future)\nlibrary(future.callr)\nplan(callr)\nsource(\"scripts/functions/parallel_functions.R\")\n#source(\"R/different_code.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
+  },
+  {
+    "objectID": "index.html#with-future-1",
+    "href": "index.html#with-future-1",
+    "title": "Parallel Computing with targets package",
+    "section": "With Future",
+    "text": "With Future\n\nThen you simply type:\n\n#without saying how many cores you will use\ntar_make_future()\n\n\"OR\"\n\n#setting how many cores you will use\ntar_make_future(workers = 2)"
+  },
+  {
+    "objectID": "index.html#how-long-it-took-2",
+    "href": "index.html#how-long-it-took-2",
+    "title": "Parallel Computing with targets package",
+    "section": "How long it took",
+    "text": "How long it took"
+  },
+  {
+    "objectID": "index.html#with-parallel",
+    "href": "index.html#with-parallel",
+    "title": "Parallel Computing with targets package",
+    "section": "With Parallel",
+    "text": "With Parallel\nIt is a bit different with parallel.\nThe top part of _targets.R is as same as the lapply version but calling the parallel package.\n\n\nlibrary(targets)\nsource(\"scripts/functions/parallel_functions.R\")\n\n\n# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)\n# tar_config_set(script = \"scripts/2._targets_pattern.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
+  },
+  {
+    "objectID": "index.html#the-difference",
+    "href": "index.html#the-difference",
+    "title": "Parallel Computing with targets package",
+    "section": "The difference",
+    "text": "The difference\n\n\n\n\nThe major difference lies in the function you call to do the parallel computing!"
+  },
+  {
+    "objectID": "index.html#the-extract_sentiment-function-before",
+    "href": "index.html#the-extract_sentiment-function-before",
+    "title": "Parallel Computing with targets package",
+    "section": "The extract_sentiment function before",
+    "text": "The extract_sentiment function before\n\n#getting the sentiment scores from a list of texts(each text is a vector of words!)\nextract_sentiment <- function(data, clean_text_list){\n  print(\"Doing simple lapply(for-loop)!\")\n  #creating the final table\n  final.df <- data %>%\n    select(-text)\n  tryCatch(expr = {\n    #getting the sentiment score\n    final.df[,sentiment_score:=sapply(X = clean_text_list,\n                                      FUN = get_sentiment_score,\n                                      USE.NAMES = F)]\n  })\n  return(final.df)\n}"
+  },
+  {
+    "objectID": "index.html#the-extract_sentiment-function-for-parallel",
+    "href": "index.html#the-extract_sentiment-function-for-parallel",
+    "title": "Parallel Computing with targets package",
+    "section": "The extract_sentiment function for parallel",
+    "text": "The extract_sentiment function for parallel\n\n#getting the sentiment scores from a list of texts(each text is a vector of words!)\nextract_sentiment <- function(data, clean_text_list){\n  print(\"Number of Cores that could be used:\")\n  print(parallel::detectCores(logical = F))\n  \n  #declaring the number of cores\n  num_cores <- floor(parallel::detectCores(logical = F)*0.66) #at least leave 33% of your cores to run your OS & other programs \n  #create the cluster\n  cl <- makeCluster(num_cores)\n  \n  print(\"DON'T USE ALL YOUR CORES!\")\n  print(paste(\"Currently using\", num_cores, \"Cores!\"))"
+  },
+  {
+    "objectID": "index.html#the-extract_sentiment-function-for-parallel-1",
+    "href": "index.html#the-extract_sentiment-function-for-parallel-1",
+    "title": "Parallel Computing with targets package",
+    "section": "The extract_sentiment function for parallel",
+    "text": "The extract_sentiment function for parallel\n#getting the sentiment scores from a list of texts(each text is a vector of words!)\nextract_sentiment <- function(data, clean_text_list){\n  print(\"Number of Cores that could be used:\")\n  print(parallel::detectCores(logical = F))\n  \n  #declaring the number of cores\n  num_cores <- floor(parallel::detectCores(logical = F)*0.66) #at least leave 33% of your cores to run your OS & other programs \n  #create the cluster\n  cl <- makeCluster(num_cores)\n  \n  print(\"DON'T USE ALL YOUR CORES!\")\n  print(paste(\"Currently using\", num_cores, \"Cores!\"))\n  \n  #creating the final table\n  final.df <- data %>%\n    select(-text)\n  tryCatch(expr = {\n    #getting the sentiment score\n    final.df[,sentiment_score:=parSapply(cl = cl,\n                                         X = clean_text_list,\n                                         FUN = get_sentiment_score,\n                                         USE.NAMES = F)]\n  },\n  finally = {\n    #stop using the cluster IMPORTANT!\n    stopCluster(cl)\n  })\n  return(final.df)\n}"
+  },
+  {
+    "objectID": "index.html#the-get_sentiment_score-function-for-parallel",
+    "href": "index.html#the-get_sentiment_score-function-for-parallel",
+    "title": "Parallel Computing with targets package",
+    "section": "The get_sentiment_score function for parallel",
+    "text": "The get_sentiment_score function for parallel\nYou have to call the required packages inside the function!\n\n#getting the sentiment scores by each text\nget_sentiment_score <- function(text){#text should be a vector of words!\n  #calling the packages again because when you do parallization packages need to be recalled!\n  packages <- c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\")\n  lapply(packages, require, character.only = TRUE)\n  \n  #setting the words related to sentiments\n  sentiment_words <- get_sentiments(\"bing\")"
+  },
+  {
+    "objectID": "index.html#how-long-it-took-3",
+    "href": "index.html#how-long-it-took-3",
+    "title": "Parallel Computing with targets package",
+    "section": "How long it took",
+    "text": "How long it took"
+  },
+  {
+    "objectID": "index.html#changing-the-namelocation-of-_targets.r",
+    "href": "index.html#changing-the-namelocation-of-_targets.r",
+    "title": "Parallel Computing with targets package",
+    "section": "changing the name/location of _targets.R",
+    "text": "changing the name/location of _targets.R\n\ntargets package automatically runs _targets.R file located at the project directory\nto change this,\n\n#telling targets to run _targets_pattern.R \n#located at \".../scripts\"\ntar_config_set(script = \"scripts/2._targets_pattern.R\")"
+  },
+  {
+    "objectID": "index.html#changing-the-namelocation-of-_targets.r-1",
+    "href": "index.html#changing-the-namelocation-of-_targets.r-1",
+    "title": "Parallel Computing with targets package",
+    "section": "changing the name/location of _targets.R",
+    "text": "changing the name/location of _targets.R\n\nOR\nCreate a _targets.yaml file at your project folder! Open a notepad, write the code lines below, and store it with the name: _targets.yaml.\n\nmain:\n  script: scripts/1._targets.R"
+  },
+  {
+    "objectID": "index.html#changing-the-data-format-for-output-files",
+    "href": "index.html#changing-the-data-format-for-output-files",
+    "title": "Parallel Computing with targets package",
+    "section": "changing the data format for output files",
+    "text": "changing the data format for output files\nchanging to parquet format\n\n#for the whole pipeline!\ntar_option_set(format = \"parquet\") # you need to download the arrow package!\n\"Note that you can only have a dataframe(table) as an output for parquet!\"\n#for general purpose use qs instead\ntar_option_set(format = \"qs\") # you need to download the qs package!\n\n#for each step\ntar_target(step,\n           print(\"a step\"),\n           format = \"qs\")"
+  }
+]
