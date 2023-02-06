@@ -2,4 +2,4 @@
 
 This repository is dedicated to creating training slides that explains how to do pleasingly parallel computing in R with 'target's package.
 
-The slides can be accessed by 
+The slides can be accessed by https://jongohkim91.github.io/targets_parallelization and examples R projects and their related code files could be found in the 
