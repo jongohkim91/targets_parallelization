@@ -74,10 +74,9 @@ you have
 
 <br>
 
-If little or no dependency exists between those parallel tasks, or for results between them!
-
-e.g. for loops
-
+1.  If you have more than one core in your CPU
+2.  If little or no dependency exists between those parallel tasks, or for results between them!
+-       e.g. for loops
 
 ## Three ways to do simple parallel computing wtih targets
 
