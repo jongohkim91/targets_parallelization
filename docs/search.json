@@ -32,7 +32,7 @@
     "href": "index.html#when-can-i-do-embarrassingly-parallel-computing",
     "title": "Parallel Computing with targets package",
     "section": "When can I do (embarrassingly) parallel computing?",
-    "text": "When can I do (embarrassingly) parallel computing?\n\n\nIf you have more than one core in your CPU\nIf little or no dependency exists between those parallel tasks, or for results between them!\n\n\n  e.g. for loops"
+    "text": "When can I do (embarrassingly) parallel computing?\n\n\nIf you have more than one core in your CPU\nIf little or no dependency exists between those parallel tasks, or for results between them!\n\ne.g. for loops"
   },
   {
     "objectID": "index.html#three-ways-to-do-simple-parallel-computing-wtih-targets",
