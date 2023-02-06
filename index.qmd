@@ -196,7 +196,7 @@ result %>% select(-date) %>% head()
 
 ![](img/lapply.png){fig.align="center"}
 
-## With clustermq
+# With clustermq
 
 ```{r}
 library(targets)
@@ -243,7 +243,7 @@ For instance, if you have 4 cores, use only 2!
 
 ![](img/cluster_mq.png){fig.align="center"}
 
-## With Future
+# With Future
 
 ```{r}
 library(targets)
@@ -281,7 +281,7 @@ tar_make_future(workers = 2)
 
 ![](img/future.png){fig.align="center"}
 
-## With Parallel
+# With Parallel
 
 It is a bit different with parallel.
 
@@ -412,75 +412,46 @@ his slide codes!
 
 Source code for slides:
 
-[https://github.com/jongohkim91/targets_training/blob/master/index.qmd](https://github.com/jongohkim91/targets_training/blob/master/index.qmd){.external
+[https://github.com/jongohkim91/targets_parallelization/blob/master/index.qmd](https://github.com/jongohkim91/targets_parallelization/blob/master/index.qmd){.external
 target="_blank"}
 
 <br>
+
+Examples I used in this training
+-  [link](https://github.com/jongohkim91/targets_parallelization/tree/master/example%20codes%20or%20projects)
 
 # Good resources
 
 The {targets} R package user manual from Will Landau(The creator of 'targets' package)
-
-[https://books.ropensci.org/targets/](https://books.ropensci.org/targets/){.external
+(@) The parallel computing in the HPC environment part
+[https://books.ropensci.org/targets/hpc.html](https://books.ropensci.org/targets/hpc.html){.external
 target="_blank"}
 
 <br>
 
-Will Landau's Presentation at UL HPC 2021 Winter School
+(@) clustermq part
 
-[https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/](https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/){.external
+[https://books.ropensci.org/targets/hpc.html#clustermq](https://books.ropensci.org/targets/hpc.html#clustermq){.external
 target="_blank"}
 
 <br>
 
-Will Landau's Full Tutorial Video
+(@) future part
 
-[https://youtu.be/FlDCM1l6XEU](https://youtu.be/FlDCM1l6XEU){.external
+[https://books.ropensci.org/targets/hpc.html#future](https://books.ropensci.org/targets/hpc.html#future){.external
 target="_blank"}
 
-# Appendix
+# Good resources
 
-## changing the name/location of \_targets.R
-
-<br>
-
-targets package automatically runs \_targets.R file located at the
-project directory
-
-to change this,
-
-```{r}
-#telling targets to run _targets_pattern.R 
-#located at ".../scripts"
-tar_config_set(script = "scripts/2._targets_pattern.R")
-```
-
-## changing the name/location of \_targets.R
+R Programming for Data Science from Roger D. Peng
+-  Parallel Computation part
+[https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html){.external
+target="_blank"}
 
 <br>
 
-OR
+Parallel Processing in R from Josh Errickson (Uni Michigan of Statistics)
 
-Create a \_targets.yaml file at your project folder!
-Open a notepad, write the code lines below, and store it with the name: \_targets.yaml.
-```{yaml}
-main:
-  script: scripts/1._targets.R
-```
-
-## changing the data format for output files
-
-changing to parquet format
-
-```{r}
-#for the whole pipeline!
-tar_option_set(format = "parquet") # you need to download the arrow package!
-"Note that you can only have a dataframe(table) as an output for parquet!"
-#for general purpose use qs instead
-tar_option_set(format = "qs") # you need to download the qs package!
-
-#for each step
-tar_target(step,
-           print("a step"),
-           format = "qs")
-```
+Nice examples for parLapply
+[https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/parallel.html#using-sockets-with-parlapply](https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/parallel.html#using-sockets-with-parlapply){.external
+target="_blank"}
