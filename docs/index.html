@@ -570,10 +570,12 @@ Jongoh Kim
 </section>
 <section id="how-long-it-took" class="slide level2">
 <h2>How long it took</h2>
+<p><br></p>
 
-<img data-src="img/lapply.png" data-fig.align="center" class="r-stretch"></section>
-<section id="with-clustermq" class="slide level2">
-<h2>With clustermq</h2>
+<img data-src="img/lapply.png" data-fig.align="center" class="r-stretch"></section></section>
+<section>
+<section id="with-clustermq" class="title-slide slide level1 center">
+<h1>With clustermq</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(targets)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(clustermq)</span>
@@ -615,10 +617,12 @@ Jongoh Kim
 </section>
 <section id="how-long-it-took-1" class="slide level2">
 <h2>How long it took</h2>
+<p><br></p>
 
-<img data-src="img/cluster_mq.png" data-fig.align="center" class="r-stretch"></section>
-<section id="with-future" class="slide level2">
-<h2>With Future</h2>
+<img data-src="img/cluster_mq.png" data-fig.align="center" class="r-stretch"></section></section>
+<section>
+<section id="with-future" class="title-slide slide level1 center">
+<h1>With Future</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(targets)</span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="fu">library</span>(future)</span>
@@ -648,10 +652,12 @@ Jongoh Kim
 </section>
 <section id="how-long-it-took-2" class="slide level2">
 <h2>How long it took</h2>
+<p><br></p>
 
-<img data-src="img/future.png" data-fig.align="center" class="r-stretch"></section>
-<section id="with-parallel" class="slide level2">
-<h2>With Parallel</h2>
+<img data-src="img/future.png" data-fig.align="center" class="r-stretch"></section></section>
+<section>
+<section id="with-parallel" class="title-slide slide level1 center">
+<h1>With Parallel</h1>
 <p>It is a bit different with parallel.</p>
 <p>The top part of _targets.R is as same as the lapply version but calling the parallel package.</p>
 <p><br></p>
@@ -763,76 +769,46 @@ Jongoh Kim
 </section>
 <section id="how-long-it-took-3" class="slide level2">
 <h2>How long it took</h2>
+<p><br></p>
 
 <img data-src="img/par_vs_simple.png" data-fig.align="center" class="r-stretch"></section></section>
 <section id="thanks" class="title-slide slide level1 center">
 <h1>Thanks!</h1>
 <p><br></p>
-<p>Special thanks to <a href="https://github.com/etiennebacher">Etienne Bacher</a> for his help and slide codes!</p>
+<p>Special thanks to <a href="https://github.com/etiennebacher">Etienne Bacher</a> for his slide codes!</p>
 <p><br></p>
 <p>Source code for slides:</p>
-<p><a href="https://github.com/jongohkim91/targets_training/blob/master/index.qmd" class="external" target="_blank">https://github.com/jongohkim91/targets_training/blob/master/index.qmd</a></p>
+<p><a href="https://github.com/jongohkim91/targets_parallelization/blob/master/index.qmd" class="external" target="_blank">https://github.com/jongohkim91/targets_parallelization/blob/master/index.qmd</a></p>
 <p><br></p>
+<p>Examples I used in this training - <a href="https://github.com/jongohkim91/targets_parallelization/tree/master/example%20codes%20or%20projects">link</a></p>
 </section>
 
 <section id="good-resources" class="title-slide slide level1 center">
 <h1>Good resources</h1>
-<p>The {targets} R package user manual from Will Landau(The creator of ‘targets’ package)</p>
-<p><a href="https://books.ropensci.org/targets/" class="external" target="_blank">https://books.ropensci.org/targets/</a></p>
+<p>The {targets} R package user manual from Will Landau(The creator of ‘targets’ package) (@) The parallel computing in the HPC environment part <a href="https://books.ropensci.org/targets/hpc.html" class="external" target="_blank">https://books.ropensci.org/targets/hpc.html</a></p>
 <p><br></p>
-<p>Will Landau’s Presentation at UL HPC 2021 Winter School</p>
-<p><a href="https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/" class="external" target="_blank">https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/</a></p>
+<ol start="3" class="example" type="1">
+<li>clustermq part</li>
+</ol>
+<p><a href="https://books.ropensci.org/targets/hpc.html#clustermq" class="external" target="_blank">https://books.ropensci.org/targets/hpc.html#clustermq</a></p>
 <p><br></p>
-<p>Will Landau’s Full Tutorial Video</p>
-<p><a href="https://youtu.be/FlDCM1l6XEU" class="external" target="_blank">https://youtu.be/FlDCM1l6XEU</a></p>
+<ol start="4" class="example" type="1">
+<li>future part</li>
+</ol>
+<p><a href="https://books.ropensci.org/targets/hpc.html#future" class="external" target="_blank">https://books.ropensci.org/targets/hpc.html#future</a></p>
 </section>
 
-<section>
-<section id="appendix" class="title-slide slide level1 center">
-<h1>Appendix</h1>
-
-</section>
-<section id="changing-the-namelocation-of-_targets.r" class="slide level2">
-<h2>changing the name/location of _targets.R</h2>
+<section id="good-resources-1" class="title-slide slide level1 center">
+<h1>Good resources</h1>
+<p>R Programming for Data Science from Roger D. Peng - Parallel Computation part <a href="https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html" class="external" target="_blank">https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html</a></p>
 <p><br></p>
-<p>targets package automatically runs _targets.R file located at the project directory</p>
-<p>to change this,</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">#telling targets to run _targets_pattern.R </span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#located at ".../scripts"</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">tar_config_set</span>(<span class="at">script =</span> <span class="st">"scripts/2._targets_pattern.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="changing-the-namelocation-of-_targets.r-1" class="slide level2">
-<h2>changing the name/location of _targets.R</h2>
-<p><br></p>
-<p>OR</p>
-<p>Create a _targets.yaml file at your project folder! Open a notepad, write the code lines below, and store it with the name: _targets.yaml.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">main</span><span class="kw">:</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> scripts/1._targets.R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="changing-the-data-format-for-output-files" class="slide level2">
-<h2>changing the data format for output files</h2>
-<p>changing to parquet format</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#for the whole pipeline!</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">tar_option_set</span>(<span class="at">format =</span> <span class="st">"parquet"</span>) <span class="co"># you need to download the arrow package!</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="st">"Note that you can only have a dataframe(table) as an output for parquet!"</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="co">#for general purpose use qs instead</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="fu">tar_option_set</span>(<span class="at">format =</span> <span class="st">"qs"</span>) <span class="co"># you need to download the qs package!</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="co">#for each step</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a><span class="fu">tar_target</span>(step,</span>
-<span id="cb16-9"><a href="#cb16-9"></a>           <span class="fu">print</span>(<span class="st">"a step"</span>),</span>
-<span id="cb16-10"><a href="#cb16-10"></a>           <span class="at">format =</span> <span class="st">"qs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Parallel Processing in R from Josh Errickson (Uni Michigan of Statistics)</p>
+<p>Nice examples for parLapply <a href="https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/parallel.html#using-sockets-with-parlapply" class="external" target="_blank">https://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/parallel.html#using-sockets-with-parlapply</a></p>
 
 <div class="footer footer-default">
 
 </div>
-</section></section>
+</section>
     </div>
   </div>
 

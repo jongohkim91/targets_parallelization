@@ -91,13 +91,6 @@
     "text": "How long it took"
   },
   {
-    "objectID": "index.html#with-clustermq",
-    "href": "index.html#with-clustermq",
-    "title": "Parallel Computing with targets package",
-    "section": "With clustermq",
-    "text": "With clustermq\n\nlibrary(targets)\nlibrary(clustermq)\noptions(clustermq.scheduler = \"multiprocess\")\nsource(\"scripts/functions/parallel_functions.R\")\n#source(\"R/different_code.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \n                            \"ggplot2\", \"data.table\", \"parallel\", \n                            \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
-  },
-  {
     "objectID": "index.html#with-clustermq-1",
     "href": "index.html#with-clustermq-1",
     "title": "Parallel Computing with targets package",
@@ -119,13 +112,6 @@
     "text": "How long it took"
   },
   {
-    "objectID": "index.html#with-future",
-    "href": "index.html#with-future",
-    "title": "Parallel Computing with targets package",
-    "section": "With Future",
-    "text": "With Future\n\nlibrary(targets)\nlibrary(future)\nlibrary(future.callr)\nplan(callr)\nsource(\"scripts/functions/parallel_functions.R\")\n#source(\"R/different_code.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
-  },
-  {
     "objectID": "index.html#with-future-1",
     "href": "index.html#with-future-1",
     "title": "Parallel Computing with targets package",
@@ -138,13 +124,6 @@
     "title": "Parallel Computing with targets package",
     "section": "How long it took",
     "text": "How long it took"
-  },
-  {
-    "objectID": "index.html#with-parallel",
-    "href": "index.html#with-parallel",
-    "title": "Parallel Computing with targets package",
-    "section": "With Parallel",
-    "text": "With Parallel\nIt is a bit different with parallel.\nThe top part of _targets.R is as same as the lapply version but calling the parallel package.\n\n\nlibrary(targets)\nsource(\"scripts/functions/parallel_functions.R\")\n\n\n# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)\n# tar_config_set(script = \"scripts/2._targets_pattern.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"parallel\", \"tidytext\", \"stopwords\"),\n               format = \"qs\")"
   },
   {
     "objectID": "index.html#the-difference",
@@ -187,26 +166,5 @@
     "title": "Parallel Computing with targets package",
     "section": "How long it took",
     "text": "How long it took"
-  },
-  {
-    "objectID": "index.html#changing-the-namelocation-of-_targets.r",
-    "href": "index.html#changing-the-namelocation-of-_targets.r",
-    "title": "Parallel Computing with targets package",
-    "section": "changing the name/location of _targets.R",
-    "text": "changing the name/location of _targets.R\n\ntargets package automatically runs _targets.R file located at the project directory\nto change this,\n\n#telling targets to run _targets_pattern.R \n#located at \".../scripts\"\ntar_config_set(script = \"scripts/2._targets_pattern.R\")"
-  },
-  {
-    "objectID": "index.html#changing-the-namelocation-of-_targets.r-1",
-    "href": "index.html#changing-the-namelocation-of-_targets.r-1",
-    "title": "Parallel Computing with targets package",
-    "section": "changing the name/location of _targets.R",
-    "text": "changing the name/location of _targets.R\n\nOR\nCreate a _targets.yaml file at your project folder! Open a notepad, write the code lines below, and store it with the name: _targets.yaml.\n\nmain:\n  script: scripts/1._targets.R"
-  },
-  {
-    "objectID": "index.html#changing-the-data-format-for-output-files",
-    "href": "index.html#changing-the-data-format-for-output-files",
-    "title": "Parallel Computing with targets package",
-    "section": "changing the data format for output files",
-    "text": "changing the data format for output files\nchanging to parquet format\n\n#for the whole pipeline!\ntar_option_set(format = \"parquet\") # you need to download the arrow package!\n\"Note that you can only have a dataframe(table) as an output for parquet!\"\n#for general purpose use qs instead\ntar_option_set(format = \"qs\") # you need to download the qs package!\n\n#for each step\ntar_target(step,\n           print(\"a step\"),\n           format = \"qs\")"
   }
 ]
