@@ -422,21 +422,20 @@ Examples I used in this training
 # Good resources
 
 The {targets} R package user manual from Will Landau(The creator of 'targets' package)
-(@) The parallel computing in the HPC environment part
+
+1.  The parallel computing in the HPC environment part
 [https://books.ropensci.org/targets/hpc.html](https://books.ropensci.org/targets/hpc.html){.external
 target="_blank"}
 
 <br>
 
-(@) clustermq part
-
+2.  clustermq part
 [https://books.ropensci.org/targets/hpc.html#clustermq](https://books.ropensci.org/targets/hpc.html#clustermq){.external
 target="_blank"}
 
 <br>
 
-(@) future part
-
+3.  future part
 [https://books.ropensci.org/targets/hpc.html#future](https://books.ropensci.org/targets/hpc.html#future){.external
 target="_blank"}
 
